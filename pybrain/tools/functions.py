@@ -47,7 +47,7 @@ def semilinearPrime(x):
 
 
 def safeExp(x):
-    """ Bounded range for the exponential function (won't produce inf or NaN). """
+    """ Bounded range (-500 to +500) for the exponential function (won't produce inf or NaN). """
     return exp(clip(x, -500, 500))
 
 
