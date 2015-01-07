@@ -5,6 +5,7 @@ __author__ = "Martin Felder, felder@in.tum.de"
 from numpy import zeros, where, ravel, r_, single
 from numpy.random import permutation
 from pybrain.datasets import SupervisedDataSet, SequentialDataSet
+from collections import Counter
 
 class ClassificationDataSet(SupervisedDataSet):
     """ Specialized data set for classification data. Classes are to be numbered from 0 to nb_classes-1. """
@@ -114,10 +115,7 @@ class ClassificationDataSet(SupervisedDataSet):
     def calculateStatistics(self):
         """Return a class histogram."""
         self.assignClasses()
-        self.classHist = {}
-        flat_labels = list(ravel(self['class']))
-        for class_ in range(self.nClasses):
-            self.classHist[class_] = flat_labels.count(class_)
+        self.classHist = Counter(ravel(self['class']))
         return self.classHist
 
     def getClass(self, idx):
