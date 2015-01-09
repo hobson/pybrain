@@ -607,6 +607,49 @@ def blockCombine(l):
     return res
 
 
+def transposed_lists(list_of_lists, default=None):
+    """Like `numpy.transposed`, but allows uneven row lengths
+
+    Uneven lengths will affect the order of the elements in the rows of the transposed lists
+
+    Args:
+        list_of_lists (list of list):
+        default (object): Scalar value (float, int, str, etc) to left-fill rows to make row lengths consistent.
+            Default is to leave vacancies empty so that row lengths are not consistent (ragged 2-D array).
+
+    >>> transposed_lists([[1, 2], [3, 4, 5], [6]])
+    [[1, 3, 6], [2, 4], [5]]
+    >>> transposed_lists(transposed_lists([[], [1, 2, 3], [4]]))
+    [[1, 2, 3], [4]]
+    >>> l = transposed_lists([range(4),[4,5]])
+    >>> l
+    [[0, 4], [1, 5], [2], [3]]
+    >>> transposed_lists(l)
+    [[0, 1, 2, 3], [4, 5]]
+    >>> transposed_lists(l, default=0)
+    [[0, 1, 2, 3], [4, 5, 0, 0]]
+    """
+    if default is None or default is [] or default is tuple():
+        default = []
+    elif default is 'None':
+        default = [None]
+    else:
+        default = [default]
+    
+    N = len(list_of_lists)
+    Ms = [len(row) for row in list_of_lists]
+    M = max(Ms)
+    ans = []
+    for j in range(M):
+        ans += [[]]
+        for i in range(N):
+            if j < Ms[i]:
+                ans[-1] += [list_of_lists[i][j]]
+            else:
+                ans[-1] += list(default)
+    return ans
+
+
 def avgFoundAfter(decreasingTargetValues, listsOfActualValues, batchSize=1, useMedian=False):
     """ Determine the average number of steps to reach a certain value (for the first time),
     given a list of value sequences.
@@ -788,45 +831,3 @@ def weightedUtest(g1, w1, g2, w2):
     conf = norm.cdf(z)
     return conf 
 
-
-def transposed_lists(list_of_lists, default=None):
-    """Like `numpy.transposed`, but allows uneven row lengths
-
-    Uneven lengths will affect the order of the elements in the rows of the transposed lists
-
-    Args:
-        list_of_lists (list of list):
-        default (object): Scalar value (float, int, str, etc) to left-fill rows to make row lengths consistent.
-            Default is to leave vacancies empty so that row lengths are not consistent (ragged 2-D array).
-
-    >>> transposed_lists([[1, 2], [3, 4, 5], [6]])
-    [[1, 3, 6], [2, 4], [5]]
-    >>> transposed_lists(transposed_lists([[], [1, 2, 3], [4]]))
-    [[1, 2, 3], [4]]
-    >>> l = transposed_lists([range(4),[4,5]])
-    >>> l
-    [[0, 4], [1, 5], [2], [3]]
-    >>> transposed_lists(l)
-    [[0, 1, 2, 3], [4, 5]]
-    >>> transposed_lists(l, default=0)
-    [[0, 1, 2, 3], [4, 5, 0, 0]]
-    """
-    if default is None or default is [] or default is tuple():
-        default = []
-    elif default is 'None':
-        default = [None]
-    else:
-        default = [default]
-    
-    N = len(list_of_lists)
-    Ms = [len(row) for row in list_of_lists]
-    M = max(Ms)
-    ans = []
-    for j in range(M):
-        ans += [[]]
-        for i in range(N):
-            if j < Ms[i]:
-                ans[-1] += [list_of_lists[i][j]]
-            else:
-                ans[-1] += list(default)
-    return ans
