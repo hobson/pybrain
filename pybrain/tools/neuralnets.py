@@ -13,12 +13,10 @@ from pybrain.datasets                  import ClassificationDataSet, SequentialD
 from pybrain.tools.shortcuts           import buildNetwork
 from pybrain.supervised                import BackpropTrainer, RPropMinusTrainer, Trainer
 from pybrain.structure                 import SoftmaxLayer, LSTMLayer
-from pybrain.utilities                 import setAllArgs
+from pybrain.utilities                 import setAllArgs, transposed_lists
 from pybrain.tools.plotting            import MultilinePlotter
 from pybrain.tools.validation          import testOnSequenceData, ModuleValidator, Validator
 from pybrain.tools.customxml           import NetworkWriter
-
-from pug.nlp.util import transposed_lists
 
 class NNtools(object):
     """ Abstract class providing basic functionality to make neural network training more comfortable """
