@@ -71,10 +71,7 @@ class NNtools(object):
         writer = csv.writer(learnf, dialect='excel')
         training_history = transposed_lists(self.trainCurve)
         for row in training_history:
-            try:
-                writer.writerow(list(row))
-            except IndexError:
-                print_exc()
+            writer.writerow(list(row))
         learnf.close()
 
 
