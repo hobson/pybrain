@@ -1,92 +1,98 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>modules – Structural Components: Modules &mdash; PyBrain v0.3 documentation</title>
+    <title>modules – Structural Components: Modules &mdash; PyBrain 0.3 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '0.3',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="PyBrain v0.3 documentation" href="../../index.html" />
+    <link rel="top" title="PyBrain 0.3 documentation" href="../../index.html" />
     <link rel="next" title="networks – Structural Components: Networks" href="networks.html" />
     <link rel="prev" title="evolvable – Container Component: Evolvable" href="evolvables.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="networks.html" title="networks – Structural Components: Networks"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="evolvables.html" title="evolvable – Container Component: Evolvable"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">PyBrain v0.3 documentation</a> &raquo;</li> 
+        <li><a href="../../index.html">PyBrain 0.3 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="module-pybrain.structure.modules">
-<h1><tt class="xref docutils literal"><span class="pre">modules</span></tt> &#8211; Structural Components: Modules<a class="headerlink" href="#module-pybrain.structure.modules" title="Permalink to this headline">¶</a></h1>
+<span id="modules-structural-components-modules"></span><h1><code class="xref py py-mod docutils literal"><span class="pre">modules</span></code> &#8211; Structural Components: Modules<a class="headerlink" href="#module-pybrain.structure.modules" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pybrain.structure.modules.BiasUnit">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">BiasUnit</tt><big>(</big><em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.BiasUnit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">BiasUnit</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.BiasUnit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code></p>
 <p>A simple bias unit with a single constant output.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.structure.modules.GaussianLayer">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">GaussianLayer</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.GaussianLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt>, <tt class="xref docutils literal"><span class="pre">pybrain.structure.parametercontainer.ParameterContainer</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">GaussianLayer</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.GaussianLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code>, <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.parametercontainer.ParameterContainer</span></code></p>
 <p>A layer implementing a gaussian interpretation of the input. The mean is
 the input, the sigmas are stored in the module parameters.</p>
 <dl class="method">
 <dt id="pybrain.structure.modules.GaussianLayer.setSigma">
-<tt class="descname">setSigma</tt><big>(</big><em>sigma</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.GaussianLayer.setSigma" title="Permalink to this definition">¶</a></dt>
-<dd>Wrapper method to set the sigmas (the parameters of the module) to a
-certain value.</dd></dl>
+<code class="descname">setSigma</code><span class="sig-paren">(</span><em>sigma</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.GaussianLayer.setSigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper method to set the sigmas (the parameters of the module) to a
+certain value.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.structure.modules.LinearLayer">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">LinearLayer</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.LinearLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">LinearLayer</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.LinearLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code></p>
 <p>The simplest kind of module, not doing any transformation.</p>
 <dl class="method">
 <dt id="pybrain.structure.modules.LinearLayer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.LinearLayer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd>Create a layer with dim number of units.</dd></dl>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.LinearLayer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a layer with dim number of units.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.structure.modules.LSTMLayer">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">LSTMLayer</tt><big>(</big><em>dim</em>, <em>peepholes=False</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.LSTMLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt>, <tt class="xref docutils literal"><span class="pre">pybrain.structure.parametercontainer.ParameterContainer</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">LSTMLayer</code><span class="sig-paren">(</span><em>dim</em>, <em>peepholes=False</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.LSTMLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code>, <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.parametercontainer.ParameterContainer</span></code></p>
 <p>Long short-term memory cell layer.</p>
 <p>The input consists of 4 parts, in the following order:
 - input gate
@@ -95,14 +101,14 @@ certain value.</dd></dl>
 - output gate</p>
 <dl class="method">
 <dt id="pybrain.structure.modules.LSTMLayer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>dim</em>, <em>peepholes=False</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.LSTMLayer.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dim</em>, <em>peepholes=False</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.LSTMLayer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>dim</em> &#8211; number of cells</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dim</strong> &#8211; number of cells</td>
 </tr>
-<tr class="field"><th class="field-name">Key peepholes:</th><td class="field-body">enable peephole connections (from state to gates)?</td>
+<tr class="field-even field"><th class="field-name">Key peepholes:</th><td class="field-body">enable peephole connections (from state to gates)?</td>
 </tr>
 </tbody>
 </table>
@@ -112,10 +118,10 @@ certain value.</dd></dl>
 
 <dl class="class">
 <dt id="pybrain.structure.modules.MDLSTMLayer">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">MDLSTMLayer</tt><big>(</big><em>dim</em>, <em>dimensions=1</em>, <em>peepholes=False</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.MDLSTMLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt>, <tt class="xref docutils literal"><span class="pre">pybrain.structure.parametercontainer.ParameterContainer</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">MDLSTMLayer</code><span class="sig-paren">(</span><em>dim</em>, <em>dimensions=1</em>, <em>peepholes=False</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.MDLSTMLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code>, <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.parametercontainer.ParameterContainer</span></code></p>
 <p>Multi-dimensional long short-term memory cell layer.</p>
-<p>The cell-states are explicitly passed on through a part of 
+<p>The cell-states are explicitly passed on through a part of
 the input/output buffers (which should be connected correctly with IdentityConnections).</p>
 <p>The input consists of 4 parts, in the following order:
 - input gate
@@ -133,42 +139,46 @@ multi-dim networks, and so its connections have always to be sliced!</p>
 
 <dl class="class">
 <dt id="pybrain.structure.modules.SigmoidLayer">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">SigmoidLayer</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.SigmoidLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">SigmoidLayer</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.SigmoidLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code></p>
 <p>Layer implementing the sigmoid squashing function.</p>
 <dl class="method">
 <dt id="pybrain.structure.modules.SigmoidLayer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.SigmoidLayer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd>Create a layer with dim number of units.</dd></dl>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.SigmoidLayer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a layer with dim number of units.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.structure.modules.SoftmaxLayer">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">SoftmaxLayer</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.SoftmaxLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">SoftmaxLayer</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.SoftmaxLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code></p>
 <p>A layer implementing a softmax distribution over the input.</p>
 <dl class="method">
 <dt id="pybrain.structure.modules.SoftmaxLayer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.SoftmaxLayer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd>Create a layer with dim number of units.</dd></dl>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.SoftmaxLayer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a layer with dim number of units.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.structure.modules.StateDependentLayer">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">StateDependentLayer</tt><big>(</big><em>dim</em>, <em>module</em>, <em>name=None</em>, <em>onesigma=True</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.StateDependentLayer" title="Permalink to this definition">¶</a></dt>
-<dd>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt>, <tt class="xref docutils literal"><span class="pre">pybrain.structure.parametercontainer.ParameterContainer</span></tt></dd></dl>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">StateDependentLayer</code><span class="sig-paren">(</span><em>dim</em>, <em>module</em>, <em>name=None</em>, <em>onesigma=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.StateDependentLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code>, <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.parametercontainer.ParameterContainer</span></code></p>
+</dd></dl>
 
 <dl class="class">
 <dt id="pybrain.structure.modules.TanhLayer">
-<em class="property">class </em><tt class="descclassname">pybrain.structure.modules.</tt><tt class="descname">TanhLayer</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.TanhLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.structure.modules.</code><code class="descname">TanhLayer</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.TanhLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.structure.modules.neuronlayer.NeuronLayer</span></code></p>
 <p>A layer implementing the tanh squashing function.</p>
 <dl class="method">
 <dt id="pybrain.structure.modules.TanhLayer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>dim</em>, <em>name=None</em><big>)</big><a class="headerlink" href="#pybrain.structure.modules.TanhLayer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd>Create a layer with dim number of units.</dd></dl>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>dim</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.structure.modules.TanhLayer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a layer with dim number of units.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -178,47 +188,49 @@ multi-dim networks, and so its connections have always to be sliced!</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
               <img class="logo" src="../../_static/pybrain_logo.gif" alt="Logo"/>
             </a></p>
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="evolvables.html"
-                                  title="previous chapter"><tt class="docutils literal"><span class="pre">evolvable</span></tt> &#8211; Container Component: Evolvable</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="networks.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">networks</span></tt> &#8211; Structural Components: Networks</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../../_sources/api/structure/modules.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="evolvables.html"
+                        title="previous chapter"><code class="docutils literal"><span class="pre">evolvable</span></code> &#8211; Container Component: Evolvable</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="networks.html"
+                        title="next chapter"><code class="docutils literal"><span class="pre">networks</span></code> &#8211; Structural Components: Networks</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/api/structure/modules.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../../modindex.html" title="Global Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="networks.html" title="networks – Structural Components: Networks"
@@ -226,13 +238,13 @@ multi-dim networks, and so its connections have always to be sliced!</p>
         <li class="right" >
           <a href="evolvables.html" title="evolvable – Container Component: Evolvable"
              >previous</a> |</li>
-        <li><a href="../../index.html">PyBrain v0.3 documentation</a> &raquo;</li> 
+        <li><a href="../../index.html">PyBrain 0.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-      &copy; Copyright 2009, CogBotLab &amp; Idsia.
-      Last updated on Nov 12, 2009.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2009, CogBotLab &amp; Idsia.
+      Last updated on Jan 09, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
     </div>
   </body>
 </html>

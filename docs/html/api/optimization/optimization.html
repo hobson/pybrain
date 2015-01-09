@@ -1,162 +1,181 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>optimization – Black-box Optimization Algorithms &mdash; PyBrain v0.3 documentation</title>
+    <title>optimization – Black-box Optimization Algorithms &mdash; PyBrain 0.3 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
         VERSION:     '0.3',
-        COLLAPSE_MODINDEX: false,
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="PyBrain v0.3 documentation" href="../../index.html" />
+    <link rel="top" title="PyBrain 0.3 documentation" href="../../index.html" />
     <link rel="next" title="classification – Datasets for Supervised Classification Training" href="../datasets/classificationdataset.html" />
     <link rel="prev" title="tasks – RL Components: Tasks" href="../rl/tasks.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="../datasets/classificationdataset.html" title="classification – Datasets for Supervised Classification Training"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../rl/tasks.html" title="tasks – RL Components: Tasks"
              accesskey="P">previous</a> |</li>
-        <li><a href="../../index.html">PyBrain v0.3 documentation</a> &raquo;</li> 
+        <li><a href="../../index.html">PyBrain 0.3 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="optimization-black-box-optimization-algorithms">
-<h1><tt class="xref docutils literal"><span class="pre">optimization</span></tt> &#8211; Black-box Optimization Algorithms<a class="headerlink" href="#optimization-black-box-optimization-algorithms" title="Permalink to this headline">¶</a></h1>
+<h1><code class="xref py py-mod docutils literal"><span class="pre">optimization</span></code> &#8211; Black-box Optimization Algorithms<a class="headerlink" href="#optimization-black-box-optimization-algorithms" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-pybrain.optimization.optimizer">
-<h2>The two base classes<a class="headerlink" href="#module-pybrain.optimization.optimizer" title="Permalink to this headline">¶</a></h2>
+<span id="the-two-base-classes"></span><h2>The two base classes<a class="headerlink" href="#module-pybrain.optimization.optimizer" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pybrain.optimization.optimizer.BlackBoxOptimizer">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.optimizer.</tt><tt class="descname">BlackBoxOptimizer</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>The super-class for learning algorithms that treat the problem as a black box. 
-At each step they change the policy, and get a fitness value by invoking 
+<em class="property">class </em><code class="descclassname">pybrain.optimization.optimizer.</code><code class="descname">BlackBoxOptimizer</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The super-class for learning algorithms that treat the problem as a black box.
+At each step they change the policy, and get a fitness value by invoking
 the FitnessEvaluator (provided as first argument upon initialization).</p>
-<p>Evaluable objects can be lists or arrays of continuous values (also wrapped in ParameterContainer) 
+<p>Evaluable objects can be lists or arrays of continuous values (also wrapped in ParameterContainer)
 or subclasses of Evolvable (that define its methods).</p>
 <dl class="method">
 <dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd>The evaluator is any callable object (e.g. a lambda function). 
-Algorithm parameters can be set here if provided as keyword arguments.</dd></dl>
-
-<dl class="method">
-<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.setEvaluator">
-<tt class="descname">setEvaluator</tt><big>(</big><em>evaluator</em>, <em>initEvaluable=None</em><big>)</big><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.setEvaluator" title="Permalink to this definition">¶</a></dt>
-<dd>If not provided upon construction, the objective function can be given through this method.
-If necessary, also provide an initial evaluable.</dd></dl>
-
-<dl class="method">
-<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.learn">
-<tt class="descname">learn</tt><big>(</big><em>additionalLearningSteps=None</em><big>)</big><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.learn" title="Permalink to this definition">¶</a></dt>
-<dd>The main loop that does the learning.</dd></dl>
-
-<dl class="attribute">
-<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.minimize">
-<tt class="descname">minimize</tt><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.minimize" title="Permalink to this definition">¶</a></dt>
-<dd>Minimize cost or maximize fitness? By default, all functions are maximized.</dd></dl>
-
-<dl class="attribute">
-<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.maxEvaluations">
-<tt class="descname">maxEvaluations</tt><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.maxEvaluations" title="Permalink to this definition">¶</a></dt>
-<dd>Stopping criterion based on number of evaluations.</dd></dl>
-
-<dl class="attribute">
-<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.maxLearningSteps">
-<tt class="descname">maxLearningSteps</tt><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.maxLearningSteps" title="Permalink to this definition">¶</a></dt>
-<dd>Stopping criterion based on number of learning steps.</dd></dl>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The evaluator is any callable object (e.g. a lambda function).
+Algorithm parameters can be set here if provided as keyword arguments.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.desiredEvaluation">
-<tt class="descname">desiredEvaluation</tt><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.desiredEvaluation" title="Permalink to this definition">¶</a></dt>
-<dd>Is there a known value of sufficient fitness?</dd></dl>
+<code class="descname">desiredEvaluation</code><em class="property"> = None</em><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.desiredEvaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is there a known value of sufficient fitness?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>additionalLearningSteps=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main loop that does the learning.</p>
+</dd></dl>
 
 <dl class="attribute">
-<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.verbose">
-<tt class="descname">verbose</tt><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.verbose" title="Permalink to this definition">¶</a></dt>
-<dd>provide console output during learning</dd></dl>
+<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.maxEvaluations">
+<code class="descname">maxEvaluations</code><em class="property"> = 1000000.0</em><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.maxEvaluations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stopping criterion based on number of evaluations.</p>
+</dd></dl>
 
 <dl class="attribute">
-<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.storeAllEvaluations">
-<tt class="descname">storeAllEvaluations</tt><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.storeAllEvaluations" title="Permalink to this definition">¶</a></dt>
-<dd>Store all evaluations (in the ._allEvaluations list)?</dd></dl>
+<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.maxLearningSteps">
+<code class="descname">maxLearningSteps</code><em class="property"> = None</em><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.maxLearningSteps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stopping criterion based on number of learning steps.</p>
+</dd></dl>
 
 <dl class="attribute">
-<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.storeAllEvaluated">
-<tt class="descname">storeAllEvaluated</tt><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.storeAllEvaluated" title="Permalink to this definition">¶</a></dt>
-<dd>Store all evaluated instances (in the ._allEvaluated list)?</dd></dl>
+<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.minimize">
+<code class="descname">minimize</code><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.minimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimize cost or maximize fitness? By default, all functions are maximized.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.numParameters">
-<tt class="descname">numParameters</tt><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.numParameters" title="Permalink to this definition">¶</a></dt>
-<dd>dimension of the search space, if applicable</dd></dl>
+<code class="descname">numParameters</code><em class="property"> = None</em><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.numParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>added by JPQ Boundaries of the search space, if applicable</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.setEvaluator">
+<code class="descname">setEvaluator</code><span class="sig-paren">(</span><em>evaluator</em>, <em>initEvaluable=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.setEvaluator" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not provided upon construction, the objective function can be given through this method.
+If necessary, also provide an initial evaluable.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.storeAllEvaluated">
+<code class="descname">storeAllEvaluated</code><em class="property"> = False</em><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.storeAllEvaluated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store all evaluated instances (in the ._allEvaluated list)?</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.storeAllEvaluations">
+<code class="descname">storeAllEvaluations</code><em class="property"> = False</em><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.storeAllEvaluations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store all evaluations (in the ._allEvaluations list)?</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pybrain.optimization.optimizer.BlackBoxOptimizer.verbose">
+<code class="descname">verbose</code><em class="property"> = False</em><a class="headerlink" href="#pybrain.optimization.optimizer.BlackBoxOptimizer.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>provide console output during learning</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.optimizer.ContinuousOptimizer">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.optimizer.</tt><tt class="descname">ContinuousOptimizer</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.optimizer.ContinuousOptimizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a title="pybrain.optimization.optimizer.BlackBoxOptimizer" class="reference internal" href="#pybrain.optimization.optimizer.BlackBoxOptimizer"><tt class="xref docutils literal"><span class="pre">pybrain.optimization.optimizer.BlackBoxOptimizer</span></tt></a></p>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.optimizer.</code><code class="descname">ContinuousOptimizer</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.optimizer.ContinuousOptimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pybrain.optimization.optimizer.BlackBoxOptimizer" title="pybrain.optimization.optimizer.BlackBoxOptimizer"><code class="xref py py-class docutils literal"><span class="pre">pybrain.optimization.optimizer.BlackBoxOptimizer</span></code></a></p>
 <p>A more restricted class of black-box optimization algorithms
-that assume the parameters to be necessarily an array of continuous values 
+that assume the parameters to be necessarily an array of continuous values
 (which can be wrapped in a ParameterContainer).</p>
 <dl class="method">
 <dt id="pybrain.optimization.optimizer.ContinuousOptimizer.__init__">
-<tt class="descname">__init__</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.optimizer.ContinuousOptimizer.__init__" title="Permalink to this definition">¶</a></dt>
-<dd>The evaluator is any callable object (e.g. a lambda function). 
-Algorithm parameters can be set here if provided as keyword arguments.</dd></dl>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.optimizer.ContinuousOptimizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The evaluator is any callable object (e.g. a lambda function).
+Algorithm parameters can be set here if provided as keyword arguments.</p>
+</dd></dl>
 
 </dd></dl>
 
 </div>
 <div class="section" id="module-pybrain.optimization">
-<h2>General Black-box optimizers<a class="headerlink" href="#module-pybrain.optimization" title="Permalink to this headline">¶</a></h2>
+<span id="general-black-box-optimizers"></span><h2>General Black-box optimizers<a class="headerlink" href="#module-pybrain.optimization" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pybrain.optimization.RandomSearch">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">RandomSearch</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.RandomSearch" title="Permalink to this definition">¶</a></dt>
-<dd>Every point is chosen randomly, independently of all previous ones.</dd></dl>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">RandomSearch</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.RandomSearch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Every point is chosen randomly, independently of all previous ones.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.HillClimber">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">HillClimber</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.HillClimber" title="Permalink to this definition">¶</a></dt>
-<dd>The simplest kind of stochastic search: hill-climbing in the fitness landscape.</dd></dl>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">HillClimber</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.HillClimber" title="Permalink to this definition">¶</a></dt>
+<dd><p>The simplest kind of stochastic search: hill-climbing in the fitness landscape.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.StochasticHillClimber">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">StochasticHillClimber</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.StochasticHillClimber" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stochastic hill-climbing always moves to a better point, but may also 
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">StochasticHillClimber</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.StochasticHillClimber" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stochastic hill-climbing always moves to a better point, but may also
 go to a worse point with a probability that decreases with increasing drop in fitness
 (and depends on a temperature parameter).</p>
 <dl class="attribute">
 <dt id="pybrain.optimization.StochasticHillClimber.temperature">
-<tt class="descname">temperature</tt><a class="headerlink" href="#pybrain.optimization.StochasticHillClimber.temperature" title="Permalink to this definition">¶</a></dt>
-<dd>The larger the temperature, the more explorative (less greedy) it behaves.</dd></dl>
+<code class="descname">temperature</code><em class="property"> = 1.0</em><a class="headerlink" href="#pybrain.optimization.StochasticHillClimber.temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>The larger the temperature, the more explorative (less greedy) it behaves.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -165,103 +184,117 @@ go to a worse point with a probability that decreases with increasing drop in fi
 <h2>Continuous optimizers<a class="headerlink" href="#continuous-optimizers" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pybrain.optimization.NelderMead">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">NelderMead</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.NelderMead" title="Permalink to this definition">¶</a></dt>
-<dd>Do the optimization using a simple wrapper for scipy&#8217;s fmin.</dd></dl>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">NelderMead</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.NelderMead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do the optimization using a simple wrapper for scipy&#8217;s fmin.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.CMAES">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">CMAES</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.CMAES" title="Permalink to this definition">¶</a></dt>
-<dd>CMA-ES: Evolution Strategy with Covariance Matrix Adaptation for
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">CMAES</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.CMAES" title="Permalink to this definition">¶</a></dt>
+<dd><p>CMA-ES: Evolution Strategy with Covariance Matrix Adaptation for
 nonlinear function minimization.
-This code is a close transcription of the provided matlab code.</dd></dl>
+This code is a close transcription of the provided matlab code.</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.OriginalNES">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">OriginalNES</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.OriginalNES" title="Permalink to this definition">¶</a></dt>
-<dd>Reference implementation of the original Natural Evolution Strategies algorithm (CEC-2008).</dd></dl>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">OriginalNES</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.OriginalNES" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference implementation of the original Natural Evolution Strategies algorithm (CEC-2008).</p>
+</dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.ExactNES">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">ExactNES</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.ExactNES" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">ExactNES</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.ExactNES" title="Permalink to this definition">¶</a></dt>
 <dd><p>A new version of NES, using the exact instead of the approximate
 Fisher Information Matrix, as well as a number of other improvements.
 (GECCO 2009).</p>
 <dl class="attribute">
 <dt id="pybrain.optimization.ExactNES.baselineType">
-<tt class="descname">baselineType</tt><a class="headerlink" href="#pybrain.optimization.ExactNES.baselineType" title="Permalink to this definition">¶</a></dt>
-<dd>Type of baseline. The most robust one is also the default.</dd></dl>
+<code class="descname">baselineType</code><em class="property"> = 3</em><a class="headerlink" href="#pybrain.optimization.ExactNES.baselineType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Type of baseline. The most robust one is also the default.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.FEM">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">FEM</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.FEM" title="Permalink to this definition">¶</a></dt>
-<dd>Fitness Expectation-Maximization (PPSN 2008).</dd></dl>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">FEM</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.FEM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fitness Expectation-Maximization (PPSN 2008).</p>
+</dd></dl>
 
 <div class="section" id="finite-difference-methods">
 <h3>Finite difference methods<a class="headerlink" href="#finite-difference-methods" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="pybrain.optimization.FiniteDifferences">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">FiniteDifferences</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.FiniteDifferences" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">FiniteDifferences</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.FiniteDifferences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Basic finite difference method.</p>
 <dl class="method">
 <dt id="pybrain.optimization.FiniteDifferences.perturbation">
-<tt class="descname">perturbation</tt><big>(</big><big>)</big><a class="headerlink" href="#pybrain.optimization.FiniteDifferences.perturbation" title="Permalink to this definition">¶</a></dt>
-<dd>produce a parameter perturbation</dd></dl>
+<code class="descname">perturbation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.FiniteDifferences.perturbation" title="Permalink to this definition">¶</a></dt>
+<dd><p>produce a parameter perturbation</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.PGPE">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">PGPE</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.PGPE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.optimization.finitedifference.fd.FiniteDifferences</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">PGPE</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.PGPE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.optimization.finitedifference.fd.FiniteDifferences</span></code></p>
 <p>Policy Gradients with Parameter Exploration (ICANN 2008).</p>
 <dl class="attribute">
 <dt id="pybrain.optimization.PGPE.epsilon">
-<tt class="descname">epsilon</tt><a class="headerlink" href="#pybrain.optimization.PGPE.epsilon" title="Permalink to this definition">¶</a></dt>
-<dd>Initial value of sigmas</dd></dl>
+<code class="descname">epsilon</code><em class="property"> = 2.0</em><a class="headerlink" href="#pybrain.optimization.PGPE.epsilon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initial value of sigmas</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.PGPE.exploration">
-<tt class="descname">exploration</tt><a class="headerlink" href="#pybrain.optimization.PGPE.exploration" title="Permalink to this definition">¶</a></dt>
-<dd>exploration type</dd></dl>
+<code class="descname">exploration</code><em class="property"> = 'local'</em><a class="headerlink" href="#pybrain.optimization.PGPE.exploration" title="Permalink to this definition">¶</a></dt>
+<dd><p>exploration type</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.PGPE.learningRate">
-<tt class="descname">learningRate</tt><a class="headerlink" href="#pybrain.optimization.PGPE.learningRate" title="Permalink to this definition">¶</a></dt>
-<dd>specific settings for sigma updates</dd></dl>
+<code class="descname">learningRate</code><em class="property"> = 0.2</em><a class="headerlink" href="#pybrain.optimization.PGPE.learningRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>specific settings for sigma updates</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.PGPE.momentum">
-<tt class="descname">momentum</tt><a class="headerlink" href="#pybrain.optimization.PGPE.momentum" title="Permalink to this definition">¶</a></dt>
-<dd>momentum term (0 to deactivate)</dd></dl>
+<code class="descname">momentum</code><em class="property"> = 0.0</em><a class="headerlink" href="#pybrain.optimization.PGPE.momentum" title="Permalink to this definition">¶</a></dt>
+<dd><p>momentum term (0 to deactivate)</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pybrain.optimization.PGPE.perturbation">
-<tt class="descname">perturbation</tt><big>(</big><big>)</big><a class="headerlink" href="#pybrain.optimization.PGPE.perturbation" title="Permalink to this definition">¶</a></dt>
-<dd>Generate a difference vector with the given standard deviations</dd></dl>
+<code class="descname">perturbation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.PGPE.perturbation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a difference vector with the given standard deviations</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.PGPE.rprop">
-<tt class="descname">rprop</tt><a class="headerlink" href="#pybrain.optimization.PGPE.rprop" title="Permalink to this definition">¶</a></dt>
-<dd>rprop decent (False to deactivate)</dd></dl>
+<code class="descname">rprop</code><em class="property"> = False</em><a class="headerlink" href="#pybrain.optimization.PGPE.rprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>rprop decent (False to deactivate)</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.PGPE.sigmaLearningRate">
-<tt class="descname">sigmaLearningRate</tt><a class="headerlink" href="#pybrain.optimization.PGPE.sigmaLearningRate" title="Permalink to this definition">¶</a></dt>
-<dd>specific settings for sigma updates</dd></dl>
+<code class="descname">sigmaLearningRate</code><em class="property"> = 0.1</em><a class="headerlink" href="#pybrain.optimization.PGPE.sigmaLearningRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>specific settings for sigma updates</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.PGPE.wDecay">
-<tt class="descname">wDecay</tt><a class="headerlink" href="#pybrain.optimization.PGPE.wDecay" title="Permalink to this definition">¶</a></dt>
-<dd>lasso weight decay (0 to deactivate)</dd></dl>
+<code class="descname">wDecay</code><em class="property"> = 0.0</em><a class="headerlink" href="#pybrain.optimization.PGPE.wDecay" title="Permalink to this definition">¶</a></dt>
+<dd><p>lasso weight decay (0 to deactivate)</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.SimpleSPSA">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">SimpleSPSA</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.SimpleSPSA" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref docutils literal"><span class="pre">pybrain.optimization.finitedifference.fd.FiniteDifferences</span></tt></p>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">SimpleSPSA</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.SimpleSPSA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybrain.optimization.finitedifference.fd.FiniteDifferences</span></code></p>
 <p>Simultaneous Perturbation Stochastic Approximation.</p>
 <p>This class uses SPSA in general, but uses the likelihood gradient and a simpler exploration decay.</p>
 </dd></dl>
@@ -271,7 +304,7 @@ Fisher Information Matrix, as well as a number of other improvements.
 <h3>Population-based<a class="headerlink" href="#population-based" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="pybrain.optimization.ParticleSwarmOptimizer">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">ParticleSwarmOptimizer</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.ParticleSwarmOptimizer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">ParticleSwarmOptimizer</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.ParticleSwarmOptimizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Particle Swarm Optimization</p>
 <p><cite>size</cite> determines the number of particles.</p>
 <p><cite>boundaries</cite> should be a list of (min, max) pairs with the length of the
@@ -284,44 +317,79 @@ its neighbours best position.</p>
 <p><cite>inertia</cite> is a damping factor.</p>
 <dl class="method">
 <dt id="pybrain.optimization.ParticleSwarmOptimizer.best">
-<tt class="descname">best</tt><big>(</big><em>particlelist</em><big>)</big><a class="headerlink" href="#pybrain.optimization.ParticleSwarmOptimizer.best" title="Permalink to this definition">¶</a></dt>
-<dd>Return the particle with the best fitness from a list of particles.</dd></dl>
+<code class="descname">best</code><span class="sig-paren">(</span><em>particlelist</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.ParticleSwarmOptimizer.best" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the particle with the best fitness from a list of particles.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pybrain.optimization.GA">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">GA</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.GA" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">GA</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standard Genetic Algorithm.</p>
 <dl class="method">
 <dt id="pybrain.optimization.GA.crossOver">
-<tt class="descname">crossOver</tt><big>(</big><em>parents</em>, <em>nbChildren</em><big>)</big><a class="headerlink" href="#pybrain.optimization.GA.crossOver" title="Permalink to this definition">¶</a></dt>
-<dd>generate a number of children by doing 1-point cross-over</dd></dl>
+<code class="descname">crossOver</code><span class="sig-paren">(</span><em>parents</em>, <em>nbChildren</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA.crossOver" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a number of children by doing 1-point cross-over</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybrain.optimization.GA.crossOverOld">
+<code class="descname">crossOverOld</code><span class="sig-paren">(</span><em>parents</em>, <em>nbChildren</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA.crossOverOld" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a number of children by doing 1-point cross-over</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybrain.optimization.GA.initPopulation">
+<code class="descname">initPopulation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA.initPopulation" title="Permalink to this definition">¶</a></dt>
+<dd><p>added by JPQ</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pybrain.optimization.GA.mustMaximize">
+<code class="descname">mustMaximize</code><em class="property"> = True</em><a class="headerlink" href="#pybrain.optimization.GA.mustMaximize" title="Permalink to this definition">¶</a></dt>
+<dd><p>added by JPQ</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pybrain.optimization.GA.mutated">
-<tt class="descname">mutated</tt><big>(</big><em>indiv</em><big>)</big><a class="headerlink" href="#pybrain.optimization.GA.mutated" title="Permalink to this definition">¶</a></dt>
-<dd>mutate some genes of the given individual</dd></dl>
+<code class="descname">mutated</code><span class="sig-paren">(</span><em>indiv</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA.mutated" title="Permalink to this definition">¶</a></dt>
+<dd><p>mutate some genes of the given individual</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybrain.optimization.GA.mutatedOld">
+<code class="descname">mutatedOld</code><span class="sig-paren">(</span><em>indiv</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA.mutatedOld" title="Permalink to this definition">¶</a></dt>
+<dd><p>mutate some genes of the given individual</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.GA.mutationProb">
-<tt class="descname">mutationProb</tt><a class="headerlink" href="#pybrain.optimization.GA.mutationProb" title="Permalink to this definition">¶</a></dt>
-<dd>mutation probability</dd></dl>
+<code class="descname">mutationProb</code><em class="property"> = 0.1</em><a class="headerlink" href="#pybrain.optimization.GA.mutationProb" title="Permalink to this definition">¶</a></dt>
+<dd><p>mutation probability</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pybrain.optimization.GA.old_jpq_mutated">
+<code class="descname">old_jpq_mutated</code><span class="sig-paren">(</span><em>indiv</em>, <em>pop</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA.old_jpq_mutated" title="Permalink to this definition">¶</a></dt>
+<dd><p>mutate some genes of the given individual</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pybrain.optimization.GA.produceOffspring">
-<tt class="descname">produceOffspring</tt><big>(</big><big>)</big><a class="headerlink" href="#pybrain.optimization.GA.produceOffspring" title="Permalink to this definition">¶</a></dt>
-<dd>produce offspring by selection, mutation and crossover.</dd></dl>
+<code class="descname">produceOffspring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA.produceOffspring" title="Permalink to this definition">¶</a></dt>
+<dd><p>produce offspring by selection, mutation and crossover.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="pybrain.optimization.GA.select">
-<tt class="descname">select</tt><big>(</big><big>)</big><a class="headerlink" href="#pybrain.optimization.GA.select" title="Permalink to this definition">¶</a></dt>
+<code class="descname">select</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.GA.select" title="Permalink to this definition">¶</a></dt>
 <dd><p>select some of the individuals of the population, taking into account their fitnesses</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Returns:</th><td class="field-body">list of selected parents</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of selected parents</td>
 </tr>
 </tbody>
 </table>
@@ -329,18 +397,21 @@ its neighbours best position.</p>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.GA.selectionSize">
-<tt class="descname">selectionSize</tt><a class="headerlink" href="#pybrain.optimization.GA.selectionSize" title="Permalink to this definition">¶</a></dt>
-<dd>the number of parents selected from the current population</dd></dl>
+<code class="descname">selectionSize</code><a class="headerlink" href="#pybrain.optimization.GA.selectionSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>the number of parents selected from the current population</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.GA.topProportion">
-<tt class="descname">topProportion</tt><a class="headerlink" href="#pybrain.optimization.GA.topProportion" title="Permalink to this definition">¶</a></dt>
-<dd>selection proportion</dd></dl>
+<code class="descname">topProportion</code><em class="property"> = 0.2</em><a class="headerlink" href="#pybrain.optimization.GA.topProportion" title="Permalink to this definition">¶</a></dt>
+<dd><p>selection proportion</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pybrain.optimization.GA.tournament">
-<tt class="descname">tournament</tt><a class="headerlink" href="#pybrain.optimization.GA.tournament" title="Permalink to this definition">¶</a></dt>
-<dd>selection scheme</dd></dl>
+<code class="descname">tournament</code><em class="property"> = False</em><a class="headerlink" href="#pybrain.optimization.GA.tournament" title="Permalink to this definition">¶</a></dt>
+<dd><p>selection scheme</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -350,9 +421,10 @@ its neighbours best position.</p>
 <h2>Multi-objective Optimization<a class="headerlink" href="#multi-objective-optimization" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pybrain.optimization.MultiObjectiveGA">
-<em class="property">class </em><tt class="descclassname">pybrain.optimization.</tt><tt class="descname">MultiObjectiveGA</tt><big>(</big><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pybrain.optimization.MultiObjectiveGA" title="Permalink to this definition">¶</a></dt>
-<dd>Multi-objective Genetic Algorithm: the fitness is a vector with one entry per objective.
-By default we use NSGA-II selection.</dd></dl>
+<em class="property">class </em><code class="descclassname">pybrain.optimization.</code><code class="descname">MultiObjectiveGA</code><span class="sig-paren">(</span><em>evaluator=None</em>, <em>initEvaluable=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pybrain.optimization.MultiObjectiveGA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multi-objective Genetic Algorithm: the fitness is a vector with one entry per objective.
+By default we use NSGA-II selection.</p>
+</dd></dl>
 
 </div>
 </div>
@@ -361,62 +433,64 @@ By default we use NSGA-II selection.</dd></dl>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
               <img class="logo" src="../../_static/pybrain_logo.gif" alt="Logo"/>
             </a></p>
-            <h3><a href="../../index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href=""><tt class="docutils literal"><span class="pre">optimization</span></tt> &#8211; Black-box Optimization Algorithms</a><ul>
-<li><a class="reference external" href="#module-pybrain.optimization.optimizer">The two base classes</a></li>
-<li><a class="reference external" href="#module-pybrain.optimization">General Black-box optimizers</a></li>
-<li><a class="reference external" href="#continuous-optimizers">Continuous optimizers</a><ul>
-<li><a class="reference external" href="#finite-difference-methods">Finite difference methods</a></li>
-<li><a class="reference external" href="#population-based">Population-based</a></li>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">optimization</span></code> &#8211; Black-box Optimization Algorithms</a><ul>
+<li><a class="reference internal" href="#module-pybrain.optimization.optimizer">The two base classes</a></li>
+<li><a class="reference internal" href="#module-pybrain.optimization">General Black-box optimizers</a></li>
+<li><a class="reference internal" href="#continuous-optimizers">Continuous optimizers</a><ul>
+<li><a class="reference internal" href="#finite-difference-methods">Finite difference methods</a></li>
+<li><a class="reference internal" href="#population-based">Population-based</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#multi-objective-optimization">Multi-objective Optimization</a></li>
+<li><a class="reference internal" href="#multi-objective-optimization">Multi-objective Optimization</a></li>
 </ul>
 </li>
 </ul>
 
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="../rl/tasks.html"
-                                  title="previous chapter"><tt class="docutils literal"><span class="pre">tasks</span></tt> &#8211; RL Components: Tasks</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="../datasets/classificationdataset.html"
-                                  title="next chapter"><tt class="docutils literal"><span class="pre">classification</span></tt> &#8211; Datasets for Supervised Classification Training</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../../_sources/api/optimization/optimization.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../rl/tasks.html"
+                        title="previous chapter"><code class="docutils literal"><span class="pre">tasks</span></code> &#8211; RL Components: Tasks</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../datasets/classificationdataset.html"
+                        title="next chapter"><code class="docutils literal"><span class="pre">classification</span></code> &#8211; Datasets for Supervised Classification Training</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/api/optimization/optimization.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../../modindex.html" title="Global Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="../datasets/classificationdataset.html" title="classification – Datasets for Supervised Classification Training"
@@ -424,13 +498,13 @@ By default we use NSGA-II selection.</dd></dl>
         <li class="right" >
           <a href="../rl/tasks.html" title="tasks – RL Components: Tasks"
              >previous</a> |</li>
-        <li><a href="../../index.html">PyBrain v0.3 documentation</a> &raquo;</li> 
+        <li><a href="../../index.html">PyBrain 0.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
-      &copy; Copyright 2009, CogBotLab &amp; Idsia.
-      Last updated on Nov 18, 2009.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2009, CogBotLab &amp; Idsia.
+      Last updated on Jan 09, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3b2.
     </div>
   </body>
 </html>
