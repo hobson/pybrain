@@ -8,6 +8,7 @@ from pylab import ion, figure, draw
 import csv
 from numpy import Infinity
 import logging
+from traceback import print_exc
 
 from pybrain.datasets                  import ClassificationDataSet, SequentialDataSet
 from pybrain.tools.shortcuts           import buildNetwork
@@ -18,6 +19,7 @@ from pybrain.tools.plotting            import MultilinePlotter
 from pybrain.tools.validation          import testOnSequenceData, ModuleValidator, Validator
 from pybrain.tools.customxml           import NetworkWriter
 
+from pug.nlp.util import transposed_lists
 
 class NNtools(object):
     """ Abstract class providing basic functionality to make neural network training more comfortable """
@@ -67,10 +69,14 @@ class NNtools(object):
             logging.error('No training curve available for saving!')
         learnf = open(learnfname, "wb")
         writer = csv.writer(learnf, dialect='excel')
-        nDataSets = len(self.trainCurve)
-        for i in range(1, len(self.trainCurve[0]) - 1):
-            writer.writerow([self.trainCurve[k][i] for k in range(nDataSets)])
+        training_history = transposed_lists(self.trainCurve)
+        for row in training_history:
+            try:
+                writer.writerow(list(row))
+            except IndexError:
+                print_exc()
         learnf.close()
+
 
     def saveNetwork(self, fname):
         """ save the trained network to a file """

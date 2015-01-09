@@ -281,7 +281,7 @@ The next method that is needed is the performAction method, the standard setting
         """ Filtered mapping towards performAction of the underlying environment """
         EpisodicTask.performAction(self, action)
 
-If you want to control the wanted angels instead of the forces you may include this simple PD mechanism:
+If you want to control the desired angles instead of the forces you may include this simple PD mechanism:
 ::
 
     #The joint angles
