@@ -8,7 +8,6 @@ from pylab import ion, figure, draw
 import csv
 from numpy import Infinity
 import logging
-from traceback import print_exc
 
 from pybrain.datasets                  import ClassificationDataSet, SequentialDataSet
 from pybrain.tools.shortcuts           import buildNetwork
