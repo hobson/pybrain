@@ -23,23 +23,25 @@ from pug.nlp.util import transposed_lists
 class NNtools(object):
     """ Abstract class providing basic functionality to make neural network training more comfortable """
 
-    def __init__(self, DS, **kwargs):
-        """ Initialize with the training data set DS. All keywords given are set as member variables.
-        The following are particularly important:
+    def __init__(self, DS, hidden=10, TDS=None, VDS=None, epoinc=5, **kwargs):
+        """ Initialize with the training data set `DS`. 
 
-        Arguments:
-          hidden (int): number of hidden units
-          TDS (dataset): test dataset for checking convergence
-          VDS (dataset): validation dataset for final performance evaluation
-          epoinc (int): number of epochs to train for, before checking convergence (default: 5)
+        All kwargs set the associated member variables.
+        
+        Args:
+            hidden (int): number of hidden units
+            TDS (DataSet): test dataset, the `DataSet` used to check for convergence
+            VDS (DataSet): validation dataset, the `DataSet` used to evaluate final performance
+            epoinc (int): number of epochs to train for, before checking convergence (default: 5)
+
         """
         self.DS = DS
-        self.hidden = 10
+        self.hidden = hidden
         self.maxepochs = 1000
         self.Graph = None
-        self.TDS = None
-        self.VDS = None
-        self.epoinc = 5
+        self.TDS = TDS
+        self.VDS = VDS
+        self.epoinc = epoinc
         setAllArgs(self, kwargs)
         self.trainCurve = None
 

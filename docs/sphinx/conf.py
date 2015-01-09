@@ -22,9 +22,25 @@ sys.path.append(__file__.rsplit('docs', 1)[0])
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc',
+extensions = [
+              'sphinx.ext.autodoc',
               'sphinx.ext.inheritance_diagram',
-              'sphinx.ext.pngmath']
+              'sphinx.ext.pngmath',
+             ]
+extensions += ['sphinx.ext.autodoc', 'sphinx.ext.napoleon']
+
+# Napoleon default settings 
+# from [napolean docs](http://sphinxcontrib-napoleon.readthedocs.org/en/latest/sphinxcontrib.napoleon.html#sphinxcontrib.napoleon.Config)
+napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_include_private_with_doc = False
+napoleon_include_special_with_doc = True
+napoleon_use_admonition_for_examples = False
+napoleon_use_admonition_for_notes = False
+napoleon_use_admonition_for_references = False
+napoleon_use_ivar = False
+napoleon_use_param = True
+napoleon_use_rtype = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
