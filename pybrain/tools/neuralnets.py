@@ -27,10 +27,11 @@ class NNtools(object):
         """ Initialize with the training data set DS. All keywords given are set as member variables.
         The following are particularly important:
 
-        :key hidden: number of hidden units
-        :key TDS: test data set for checking convergence
-        :key VDS: validation data set for final performance evaluation
-        :key epoinc: number of epochs to train for, before checking convergence (default: 5)
+        Arguments:
+          hidden (int): number of hidden units
+          TDS (dataset): test dataset for checking convergence
+          VDS (dataset): validation dataset for final performance evaluation
+          epoinc (int): number of epochs to train for, before checking convergence (default: 5)
         """
         self.DS = DS
         self.hidden = 10
