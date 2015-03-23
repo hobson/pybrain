@@ -17,10 +17,25 @@ except ImportError:
 
 
 class NetworkReader(XMLHandling):
-    """ A class that can take read a network from an XML file """
+    """ A class that can read and parse a `Network` instance from an XML file """
 
     mothers = {}
     modules = {}
+
+    def __init__(self, filename, *args, **kwargs):
+        """Initialize NetworkReader to read/parse XML file to create a `Network` instance.
+
+        Arguments:
+            filename (str): full path and file name to an existing XML file containing a `Network` definition
+
+        Examples:
+            >>> # create an empty XML file to test with below
+            >>> fp = open('source_file.xml', 'a'); fp.close();  
+            >>> NetworkReader('source_file.xml')                              # doctest: +ELLIPSIS
+            <pybrain.tools.customxml.handling.NetworkReader instance at ...>
+        """
+
+        return super(NetworkReader, self).__init__(filename=filename, newfile=False, *args, **kwargs)
 
     @staticmethod
     def readFrom(filename, name = None, index = 0):

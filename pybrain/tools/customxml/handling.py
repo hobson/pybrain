@@ -6,15 +6,28 @@ from scipy import zeros
 import string
 
 class XMLHandling:
-    """ general purpose methods for reading, writing and editing XML files.
+    """Class for reading, writing and editing XML files.
+
     This class should wrap all the XML-specific code, and then be subclassed
     by specialized readers/writers that use its methods.
-
-    The priority is on readability and usability for the subclasses, not efficiency.
     """
 
-    def __init__(self, filename, newfile):
-        """ :key newfile: is the file to be read or is it a new file? """
+    def __init__(self, filename, newfile=False):
+        """Initialize an XML file reader/writer or parser
+
+        Arguments:
+            filename (str): full path and file name of an XML file (to be created or already existing)
+            newfile (bool): whether or not the file is new and should be created/overwritten
+                default: False
+
+        Examples:
+            >>> XMLHandling('destination_file_that_does_not_yet_exist.xml', True)  # doctest: +ELLIPSIS
+            <pybrain.tools.customxml.handling.XMLHandling instance at ...>
+            >>> # create an empty XML file to test with below
+            >>> fp = open('source_file.xml', 'a'); fp.close();  
+            >>> XMLHandling('source_file.xml', False)                              # doctest: +ELLIPSIS
+            <pybrain.tools.customxml.handling.XMLHandling instance at ...>
+        """
         self.filename = filename
         if not newfile:
             self.dom = parse(filename)

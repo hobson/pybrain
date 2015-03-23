@@ -831,3 +831,14 @@ def weightedUtest(g1, w1, g2, w2):
     conf = norm.cdf(z)
     return conf 
 
+
+def save_trainer(trainer, path):
+    """Save a Trainer objects historical training performance curve (showing convergence, or not) in CSV format."""
+    if self.trainCurve is None:
+        logging.error('No training curve available for saving!')
+    learnf = open(learnfname, "wb")
+    writer = csv.writer(learnf, dialect='excel')
+    training_history = transposed_lists(self.trainCurve)
+    for row in training_history:
+        writer.writerow(list(row))
+    learnf.close()
