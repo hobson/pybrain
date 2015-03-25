@@ -20,8 +20,11 @@ class FullConnection(Connection, ParameterContainer):
 
     def _backwardImplementation(self, outerr, inerr, inbuf):
         inerr += dot(reshape(self.params, (self.outdim, self.indim)).T, outerr)
+        
+        # this doesn't change the state of anything! _derivs unchanged and ds reset when reruns!
         ds = self.derivs
         ds += outer(inbuf, outerr).T.flatten()
+        print('at end of _backwardImplementation()\n\nds={}\n\nderivs=\n'.format(ds, self.derivs))
 
     def whichBuffers(self, paramIndex):
         """Return the index of the input module's output buffer and
