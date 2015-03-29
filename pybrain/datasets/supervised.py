@@ -123,16 +123,18 @@ class SupervisedDataSet(DataSet):
             left (Dataset): the portion of the dataset requested of length int(N * portion).
             right (Dataset): the remaining portion of the dataset of length int(N * (1 - portion)).
         """
-        index0, indexN = 0, len(self)
+        separator = int(len(self) * proportion)
         if shuffle:
             indicies = random.permutation(len(self))
         else:
             indicies = range(len(self))
-            index_margin = int(margin * len(self))
-            index0 = random.randint(0, int(index_margin / 2) + 1)
-            indexN = len(self) - index_margin + index0
-            assert(indexN <= len(self))
-        separator = int((indexN - index0) * proportion)
+            if margin:
+                index0, indexN = 0, len(self)
+                index_margin = int(margin * len(self))
+                index0 = random.randint(0, int(index_margin / 2) + 1)
+                indexN = len(self) - index_margin + index0
+                assert(indexN <= len(self))
+                separator = int((indexN - index0) * proportion)
 
         leftIndicies = indicies[index0:(index0 + separator)]
         rightIndicies = indicies[(index0 + separator):indexN]
