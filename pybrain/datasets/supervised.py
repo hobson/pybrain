@@ -18,7 +18,7 @@ class SupervisedDataSet(DataSet):
 
         Pass `inp` and `target` to specify the dimensions of the input and
         target vectors."""
-        DataSet.__init__(self)
+        super(SupervisedDataSet, self).__init__()
         if isscalar(inp):
             # add input and target fields and link them
             self.addField('input', inp)
@@ -53,7 +53,7 @@ class SupervisedDataSet(DataSet):
     def setField(self, label, arr, **kwargs):
         """Set the given array `arr` as the new array of the field specfied by
         `label`."""
-        DataSet.setField(self, label, arr, **kwargs)
+        super(SupervisedDataSet, self).setField(label, arr, **kwargs)
         # refresh dimensions, in case any of these fields were modified
         if label == 'input':
             self.indim = self.getDimension('input')
@@ -101,7 +101,7 @@ class SupervisedDataSet(DataSet):
             res += self.evaluateMSE(module.activate, **args)
         return res/averageOver
 
-    def splitWithProportion(self, proportion = 0.5):
+    def splitWithProportion(self, proportion = 0.5, shuffle=True):
         """Produce two new datasets, the first one containing the fraction given
         by `proportion` of the samples.
 
@@ -118,8 +118,11 @@ class SupervisedDataSet(DataSet):
         Returns:
             left (Dataset): the portion of the dataset requested of length int(N * portion).
             right (Dataset): the remaining portion of the dataset of length int(N * (1 - portion)).
-"""
-        indicies = random.permutation(len(self))
+        """
+        if shuffle:
+            indicies = random.permutation(len(self))
+        else:
+            indicies = range(len(self))
         separator = int(len(self) * proportion)
 
         leftIndicies = indicies[:separator]
@@ -131,3 +134,31 @@ class SupervisedDataSet(DataSet):
                                     target=self['target'][rightIndicies].copy())
         return leftDs, rightDs
 
+
+class SequentialSupervisedDataSet(SupervisedDataSet):
+    """A SupervisedDataSet is an ordered sequence with two fields, one for input and one for the target
+
+    A SequentialSupervisedDataSet is identical to a SupervisedDataSet except that it maintains
+    the order of the samples (both the output and the input). Indices of a new sequence are stored whenever
+    the method newSequence() is called. The last (open) sequence is considered
+    a normal sequence even though it does not have a following "new sequence"
+    marker."""
+
+    def splitWithProportion(self, proportion=0.5):
+        """Produce two new datasets, each containing a part of the sequences.
+
+        The first dataset will have a fraction given by `proportion` of the
+        dataset. This split is repeatable and nonrandom. So the left (first)
+        dataset will contain the first M samples unshuffled, where M is int(len(samples) * proportion) 
+        and the right (second) dataset will contain the remaining samples, unshuffled.
+
+        Arguments:
+            proportion (float): Fraction of dataset to return first in the pair of Datasets returned
+                Must be between 0 and 1 inclusive.
+                default: 0.5 
+
+        Returns:
+            left (Dataset): the portion of the dataset requested of length int(N * portion).
+            right (Dataset): the remaining portion of the dataset of length int(N * (1 - portion)).
+        """
+        return super(SequentialSupervisedDataSet, self).splitWithProportion(proportion=proportion, shuffle=False)

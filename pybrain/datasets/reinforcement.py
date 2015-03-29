@@ -1,7 +1,7 @@
 __author__ = 'Thomas Rueckstiess, ruecksti@in.tum.de'
 
 from pybrain.datasets.sequential import SequentialDataSet
-from pybrain.datasets.dataset import DataSet
+# from pybrain.datasets.dataset import DataSet
 from scipy import zeros
 
 
@@ -11,7 +11,7 @@ class ReinforcementDataSet(SequentialDataSet):
             reward, and create an index marker. This class is basically a wrapper function
             that renames the fields of SupervisedDataSet into the more common reinforcement
             learning names. Instead of 'episodes' though, we deal with 'sequences' here. """
-        DataSet.__init__(self)
+        super(ReinforcementDataSet, self).__init__()
         # add 3 fields: input, target, importance
         self.addField('state', statedim)
         self.addField('action', actiondim)
@@ -48,7 +48,7 @@ class ReinforcementDataSet(SequentialDataSet):
     def __reduce__(self):
         # FIXME: This does actually not feel right: We have to use the DataSet
         # method here, although we inherit from sequential dataset.
-        _, _, state, _, _ = DataSet.__reduce__(self)
+        _, _, state, _, _ = super(ReinforcementDataSet, self).__reduce__()
         creator = self.__class__
         args = self.statedim, self.actiondim
         return creator, args, state, iter([]), iter({})

@@ -12,7 +12,7 @@ from pybrain.structure.connections import IdentityConnection
 
 class LoglhDataSet(DataSet):
     def __init__(self, dim):
-        DataSet.__init__(self)
+        super(LoglhDataSet, self).__init__()
         self.addField('loglh', dim)
         self.linkFields(['loglh'])
         self.index = 0
