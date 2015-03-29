@@ -101,7 +101,7 @@ class SupervisedDataSet(DataSet):
             res += self.evaluateMSE(module.activate, **args)
         return res/averageOver
 
-    def splitWithProportion(self, proportion = 0.5, shuffle=True):
+    def splitWithProportion(self, proportion = 0.5, shuffle=True, margin=0):
         """Produce two new datasets, the first one containing the fraction given
         by `proportion` of the samples.
 
@@ -114,19 +114,28 @@ class SupervisedDataSet(DataSet):
             proportion (float): Fraction of dataset to return first in the pair of Datasets returned
                 Must be between 0 and 1 inclusive.
                 default: 0.5 
+            margin (float): Fraction of dataset to be unused when splitting without shuffling.
+                This unused portion of the dataset allows the dividing index to shift randomly.
+                Must be between 0 and 1 inclusive.
+                default: 0  (repeatable nonrandom splits)
 
         Returns:
             left (Dataset): the portion of the dataset requested of length int(N * portion).
             right (Dataset): the remaining portion of the dataset of length int(N * (1 - portion)).
         """
+        index0, indexN = 0, len(self)
         if shuffle:
             indicies = random.permutation(len(self))
         else:
             indicies = range(len(self))
-        separator = int(len(self) * proportion)
+            index_margin = int(margin * len(self))
+            index0 = random.randint(0, int(index_margin / 2) + 1)
+            indexN = len(self) - index_margin + index0
+            assert(indexN <= len(self))
+        separator = int((indexN - index0) * proportion)
 
-        leftIndicies = indicies[:separator]
-        rightIndicies = indicies[separator:]
+        leftIndicies = indicies[index0:(index0 + separator)]
+        rightIndicies = indicies[(index0 + separator):indexN]
 
         leftDs = SupervisedDataSet(inp=self['input'][leftIndicies].copy(),
                                    target=self['target'][leftIndicies].copy())
@@ -144,7 +153,7 @@ class SequentialSupervisedDataSet(SupervisedDataSet):
     a normal sequence even though it does not have a following "new sequence"
     marker."""
 
-    def splitWithProportion(self, proportion=0.5):
+    def splitWithProportion(self, proportion=0.5, margin=0.1):
         """Produce two new datasets, each containing a part of the sequences.
 
         The first dataset will have a fraction given by `proportion` of the
@@ -161,4 +170,4 @@ class SequentialSupervisedDataSet(SupervisedDataSet):
             left (Dataset): the portion of the dataset requested of length int(N * portion).
             right (Dataset): the remaining portion of the dataset of length int(N * (1 - portion)).
         """
-        return super(SequentialSupervisedDataSet, self).splitWithProportion(proportion=proportion, shuffle=False)
+        return super(SequentialSupervisedDataSet, self).splitWithProportion(proportion=proportion, shuffle=False, margin=margin)
