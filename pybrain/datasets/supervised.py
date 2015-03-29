@@ -127,7 +127,7 @@ class SupervisedDataSet(DataSet):
         if shuffle:
             indicies = random.permutation(len(self))
         else:
-            indicies = range(len(self))
+            indicies = random.np.arange(len(self))
             if margin:
                 index0, indexN = 0, len(self)
                 index_margin = int(margin * len(self))
