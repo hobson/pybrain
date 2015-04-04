@@ -9,13 +9,17 @@ from pybrain.structure.networks.network import Network
 
 
 class FeedForwardNetworkComponent(object):
+    """ Multiple-inheritance "Mixin" for FeedForwardNetwork class
+
+    Augments `Network` class in FeedForwardNetwork class definition below.
+    """
 
     def __init__(self, name=None, **args):
         pass
 
     def activate(self, inpt):
         """Do one transformation of an input and return the result."""
-        self.reset()
+        # self.reset()
         return super(FeedForwardNetworkComponent, self).activate(inpt)
 
     def _forwardImplementation(self, inbuf, outbuf):
