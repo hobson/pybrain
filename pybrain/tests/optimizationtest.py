@@ -24,6 +24,7 @@ __author__ = 'Tom Schaul, tom@idsia.ch'
 from inspect import isclass
 from scipy import sum, array, ndarray, log10
 from random import random, choice
+import numpy as np
 
 import pybrain.optimization.optimizer as bbo
 import pybrain.optimization.populationbased.multiobjective as mobj
@@ -221,7 +222,7 @@ def testOnEvolvable(algo):
         return True
 
 
-def testMaze():
+def testMaze(algo):
     # simplified version of the reinforcement learning tutorial example
     structure = np.array([[1, 1, 1, 1, 1],
                           [1, 0, 0, 0, 1],
