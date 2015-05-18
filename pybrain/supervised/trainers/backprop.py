@@ -4,7 +4,7 @@ __author__ = 'Daan Wierstra and Tom Schaul'
 
 from scipy import dot, argmax
 from random import shuffle
-from math import isnan
+from math import isnan, sqrt
 from pybrain.supervised.trainers.trainer import Trainer
 from pybrain.utilities import fListToString
 from pybrain.auxiliary import GradientDescent
@@ -34,7 +34,7 @@ class BackpropTrainer(Trainer):
         decay at all.
 
         Arguments:
-            errfun (func): Function that takes 2 positional arguments, 
+            errfun (func): Function that takes 2 positional arguments,
                 the target (true) and predicted (estimated) output vectors, and returns an
                 estimate of the signed distance to the target (true) output.
                 default = lambda targ, est: (targ - est))
@@ -82,7 +82,6 @@ class BackpropTrainer(Trainer):
         self.epoch += 1
         self.totalepochs += 1
         return errors / ponderation
-
 
     def _calcDerivs(self, seq):
         """Calculate error function and backpropagate output errors to yield
@@ -151,7 +150,7 @@ class BackpropTrainer(Trainer):
 
         If no dataset is supplied, the one passed upon Trainer initialization is
         used."""
-        if dataset == None:
+        if dataset is None:
             dataset = self.ds
         dataset.reset()
         if verbose:
@@ -183,7 +182,7 @@ class BackpropTrainer(Trainer):
         initialization is used. If return_targets is set, also return
         corresponding target classes.
         """
-        if dataset == None:
+        if dataset is None:
             dataset = self.ds
         dataset.reset()
         out = []
@@ -211,7 +210,7 @@ class BackpropTrainer(Trainer):
         If no dataset is given, the dataset passed during Trainer
         initialization is used. validationProportion is the ratio of the dataset
         that is used for the validation dataset.
-        
+
         If the training and validation data is already set, the splitPropotion is ignored
 
         If maxEpochs is given, at most that many epochs
@@ -237,8 +236,19 @@ class BackpropTrainer(Trainer):
         self.trainingErrors = []
         self.validationErrors = [bestverr]
         while True:
+            # FIXME: train should return both training and validation error
+            #        trainingError, validationError = self.train()
             trainingError = self.train()
             validationError = self.testOnData(validationData)
+            if self.verbose:
+                if epochs == 0:
+                    print("epoch    training err  validat. err  mean weight  weight std")
+                print("{epoch:6d}  {trainerr:12.5g}  {valerr:12.5g}  {meanweight:12.5g}".format(
+                    epoch=self.epoch,
+                    trainerr=trainingError,
+                    valerr=validationError,
+                    meanweight=self.module.params.mean(),
+                    weightstd=self.module.params.std()))
             if isnan(trainingError) or isnan(validationError):
                 raise Exception("Training produced NaN results")
             self.trainingErrors.append(trainingError)
@@ -249,7 +259,7 @@ class BackpropTrainer(Trainer):
                 bestweights = self.module.params.copy()
                 bestepoch = epochs
 
-            if maxEpochs != None and epochs >= maxEpochs:
+            if maxEpochs is not None and epochs >= maxEpochs:
                 self.module.params[:] = bestweights
                 break
             epochs += 1

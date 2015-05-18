@@ -44,11 +44,11 @@ class RPropMinusTrainer(BackpropTrainer):
             e, p = self._calcDerivs(seq)
             errors += e
             ponderation += p
-        if self.verbose:
-            print(("epoch {epoch:6d}  total error {error:12.5g}   avg weight  {weight:12.5g}".format(
-                epoch=self.epoch,
-                error=errors / ponderation,
-                weight=sqrt((self.module.params ** 2).mean()))))
+        # if self.verbose:
+        #     print(("epoch {epoch:6d}  train/val err {error:12.5g}/{error:12.5g}  avg weight  {weight:12.5g}".format(
+        #         epoch=self.epoch,
+        #         error=errors / ponderation,
+        #         weight=sqrt((self.module.params ** 2).mean()))))
         self.module._setParameters(self.descent(self.module.derivs - self.weightdecay * self.module.params))
         self.epoch += 1
         self.totalepochs += 1
