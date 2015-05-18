@@ -58,8 +58,10 @@ class BackpropTrainer(Trainer):
         self.descent.init(module.params)
         self.errfun = errfun or abs_error
 
-    def train(self):
+    def train(self, verbose=None):
         """Train the associated module for one epoch."""
+        if verbose is None:
+            verbose = self.verbose
         assert len(self.ds) > 0, "Dataset cannot be empty."
         self.module.resetDerivatives()
         errors = 0
@@ -72,6 +74,14 @@ class BackpropTrainer(Trainer):
             e, p = self._calcDerivs(seq)
             errors += e
             ponderation += p
+            if verbose:
+                if self.epoch == 0:
+                    print("epoch    training err  mean weight  weight std")
+                print("{epoch:6d}  {trainerr:12.5g}  {valerr:12.5g}  {meanweight:12.5g}".format(
+                    epoch=self.epoch,
+                    trainerr=errors / ponderation,
+                    meanweight=self.module.params.mean(),
+                    weightstd=self.module.params.std()))
             if not self.batchlearning:
                 gradient = (self.module.derivs -
                             self.weightdecay * self.module.params)
@@ -155,7 +165,7 @@ class BackpropTrainer(Trainer):
 
         If no dataset is supplied, the one passed upon Trainer initialization is
         used."""
-        if dataset == None:
+        if dataset is None:
             dataset = self.ds
         dataset.reset()
         if verbose:
@@ -187,7 +197,7 @@ class BackpropTrainer(Trainer):
         initialization is used. If return_targets is set, also return
         corresponding target classes.
         """
-        if dataset == None:
+        if dataset is None:
             dataset = self.ds
         dataset.reset()
         out = []
@@ -242,15 +252,20 @@ class BackpropTrainer(Trainer):
         bestepoch = 0
         self.trainingErrors = []
         self.validationErrors = [bestverr]
+        validationError = None
         while True:
             # FIXME: train should return both training and validation error
             #        trainingError, validationError = self.train()
+            verbose, self.verbose = self.verbose, False
             trainingError = self.train()
-            validationError = self.testOnData(validationData)
+            self.verbose = verbose
+            # Lag validationError displayed to user by one epoch, so that training & validation Error are comparable
+            # Lag is required because testOndata() uses latest weights and trainingError was computed w/ old weights
+            previous_validation_err, validationError = validationError, self.testOnData(validationData)
             if self.verbose:
                 if epochs == 0:
-                    print("epoch    training err  validat. err  mean weight  weight std")
-                print("{epoch:6d}  {trainerr:12.5g}  {valerr:12.5g}  {meanweight:12.5g}".format(
+                    print(" epoch  training_err  validation_err  weight_mean  weight_stddev")
+                print("{epoch:6d}  {trainerr:12.5g}     {valerr:12.5g}  {meanweight:12.5g}  {weightstd:12.5g}".format(
                     epoch=self.epoch,
                     trainerr=trainingError,
                     valerr=validationError,
