@@ -15,6 +15,7 @@ def semilinear(x):
     except AttributeError:
         # no, it wasn't: build shape from length of list
         shape = (1, len(x))
+
     def f(val):
         if val < 0:
             # exponential function for x<0
@@ -22,6 +23,7 @@ def semilinear(x):
         else:
             # linear function for x>=0
             return val + 1.0
+
     return array(list(map(f, x))).reshape(shape)
 
 
@@ -36,6 +38,7 @@ def semilinearPrime(x):
     except AttributeError:
         # no, it wasn't: build shape from length of list
         shape = (1, len(x))
+
     def f(val):
         if val < 0:
             # exponential function for x<0
@@ -43,6 +46,7 @@ def semilinearPrime(x):
         else:
             # linear function for x>=0
             return 1.0
+
     return array(list(map(f, x))).reshape(shape)
 
 
@@ -54,6 +58,11 @@ def safeExp(x):
 def sigmoid(x):
     """ Logistic sigmoid function. """
     return 1. / (1. + safeExp(-x))
+
+
+def steep_sigmoid(x, exponent=1.4):
+    """A steeper logistic sigmoid function that approaches limits faster. """
+    return (1. / (1. + safeExp(-x))) ** exponent
 
 
 def sigmoidPrime(x):

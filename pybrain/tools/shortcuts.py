@@ -6,7 +6,7 @@ import logging
 from sys import exit as errorexit
 from pybrain.structure.networks.feedforward import FeedForwardNetwork
 from pybrain.structure.networks.recurrent import RecurrentNetwork
-from pybrain.structure.modules import BiasUnit, SigmoidLayer, LinearLayer, LSTMLayer
+from pybrain.structure.modules import BiasUnit, SigmoidLayer, SteepSigmoidLayer, LinearLayer, LSTMLayer
 from pybrain.structure.connections import FullConnection, IdentityConnection
 
 try:
@@ -15,7 +15,8 @@ except ImportError as e:
     logging.info("No fast networks available: %s" % e)
 
 
-class NetworkError(Exception): pass
+class NetworkError(Exception):
+    pass
 
 
 def buildNetwork(*layers, **options):
@@ -42,7 +43,7 @@ def buildNetwork(*layers, **options):
            'peepholes': False,
            'recurrent': False,
            'fast': False,
-    }
+           }
     for key in options:
         if key not in list(opt.keys()):
             raise NetworkError('buildNetwork unknown option: %s' % key)
@@ -55,7 +56,7 @@ def buildNetwork(*layers, **options):
     network_map = {
         (False, False): FeedForwardNetwork,
         (True, False): RecurrentNetwork,
-    }
+        }
     try:
         network_map[(False, True)] = _FeedForwardNetwork
         network_map[(True, True)] = _RecurrentNetwork
@@ -161,5 +162,3 @@ def _buildNetwork(*layers, **options):
     net.addOutputModule(layer)
     net.sortModules()
     return net
-
-
